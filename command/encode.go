@@ -1,6 +1,7 @@
 package command
 
 import (
+	"bufio"
 	"flag"
 	"io"
 	"os"
@@ -45,6 +46,23 @@ func (c *EncodeCommand) Run(args []string) int {
 		return ExitCodeError
 	}
 
+	if len(url) == 0 {
+		// Get URL from STDIN
+		scanner := bufio.NewScanner(c.Reader)
+		if scanner.Scan() {
+			url = strings.TrimSpace(scanner.Text())
+		}
+		if err := scanner.Err(); err != nil {
+			c.Ui.Error(os.ErrInvalid.Error() + ": " + err.Error())
+			return ExitCodeError
+		}
+	}
+
+	if len(url) == 0 {
+		c.Ui.Error(os.ErrInvalid.Error() + ": No Argument")
+		return ExitCodeError
+	}
+
 	// shortening URL
 	shortUrl, err := gitioapi.Encode(&gitioapi.Param{Url: url, Code: code})
 	if err != nil {
@@ -62,7 +80,7 @@ func (c *EncodeCommand) Synopsis() string {
 
 func (c *EncodeCommand) Help() string {
 	helpText := `
-usage: gitio-shorten encode [-c <code>] <url>
+usage: gitio-shorten encode [-c <code>] [<url>]
 `
 	return strings.TrimSpace(helpText)
 }
