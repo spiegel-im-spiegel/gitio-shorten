@@ -31,7 +31,12 @@ https://github.com/technoweenie
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/spiegel-im-spiegel/gitio-shorten
+$ go get -v github.com/spiegel-im-spiegel/gitio-shorten
+github.com/spiegel-im-spiegel/gitio-shorten (download)
+github.com/spiegel-im-spiegel/gitioapi (download)
+github.com/spiegel-im-spiegel/gitioapi
+github.com/spiegel-im-spiegel/gitio-shorten/command
+github.com/spiegel-im-spiegel/gitio-shorten
 ```
 
 ## Contribution
