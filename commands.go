@@ -19,6 +19,10 @@ func Commands(meta *command.Meta, ui *cli.BasicUi) map[string]cli.CommandFactory
 		"decode": func() (cli.Command, error) {
 			return &command.DecodeCommand{
 				Meta: *meta,
+				Name:        Name,
+				Reader:      ui.Reader,
+				Writer:      ui.Writer,
+				ErrorWriter: ui.ErrorWriter,
 			}, nil
 		},
 
