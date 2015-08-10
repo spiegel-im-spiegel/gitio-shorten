@@ -5,11 +5,15 @@ import (
 	"github.com/spiegel-im-spiegel/gitio-shorten/command"
 )
 
-func Commands(meta *command.Meta) map[string]cli.CommandFactory {
+func Commands(meta *command.Meta, ui *cli.BasicUi) map[string]cli.CommandFactory {
 	return map[string]cli.CommandFactory{
 		"encode": func() (cli.Command, error) {
 			return &command.EncodeCommand{
-				Meta: *meta,
+				Meta:        *meta,
+				Name:        Name,
+				Reader:      ui.Reader,
+				Writer:      ui.Writer,
+				ErrorWriter: ui.ErrorWriter,
 			}, nil
 		},
 		"decode": func() (cli.Command, error) {
